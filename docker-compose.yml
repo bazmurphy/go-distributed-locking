@@ -1,0 +1,37 @@
+services:
+  etcd:
+    image: bitnami/etcd:latest
+    container_name: etcd
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+    ports:
+      - "2379:2379"
+    healthcheck:
+      test: ["CMD", "etcdctl", "--endpoints=http://localhost:2379", "endpoint", "health"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app1:
+    build: .
+    container_name: app1
+    command: ["--id", "app1"]
+    depends_on:
+      etcd:
+        condition: service_healthy
+  
+  app2:
+    build: .
+    container_name: app2
+    command: ["--id", "app2"]
+    depends_on:
+      etcd:
+        condition: service_healthy
+
+  app3:
+    build: .
+    container_name: app3
+    command: ["--id", "app3"]
+    depends_on:
+      etcd:
+        condition: service_healthy
