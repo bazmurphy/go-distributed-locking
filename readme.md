@@ -1,11 +1,5 @@
-Pull the etcd image
+# Distributed Locking
 
-```sh
-docker pull bitnami/etcd:latest
-```
+run with: `docker compose up`
 
-Run a container with it
-
-```sh
-docker run -it --rm -p 2379:2379 --env ALLOW_NONE_AUTHENTICATION=yes bitnami/etcd:latest
-```
+spawns one `etcd` and 3 `app` instances that all compete for a lock on a key to update it's value
