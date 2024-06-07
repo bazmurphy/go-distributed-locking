@@ -57,16 +57,16 @@ func main() {
 		log.Printf("%s waiting for %s before attempting to acquire the lock...", *id, waitDuration)
 		time.Sleep(waitDuration)
 
-		log.Printf("%s attempting to acquire the lock...", *id)
+		log.Printf("%s ⏳ attempting to acquire the lock...", *id)
 
 		// acquire the lock
 		err := mutex.Lock(context.TODO())
 		if err != nil {
 			log.Fatalf("error: failed to acquire the lock: %v", err)
 		}
-		log.Printf("%s acquired the lock", *id)
+		log.Printf("%s acquired the lock 🔒 🔴", *id)
 
-		log.Printf("%s attempting to update the value...", *id)
+		log.Printf("%s ⏳ attempting to update the value...", *id)
 
 		newValue := fmt.Sprintf("%s-value-%d", *id, loopCount)
 
@@ -78,7 +78,7 @@ func main() {
 
 		log.Printf("%s put response: %v", *id, putResponse)
 
-		log.Printf("%s updated the value to: %s", *id, newValue)
+		log.Printf("%s ✅ updated the value to: %s", *id, newValue)
 
 		// hold the lock for a random duration between 1 and 5 seconds
 		waitDuration = time.Duration(1+rand.Intn(4)) * time.Second
@@ -90,7 +90,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("error: failed to release the lock: %v", err)
 		}
-		log.Printf("%s released the lock", *id)
+		log.Printf("%s released the lock 🔓 🟢", *id)
 
 		loopCount++
 	}
