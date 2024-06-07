@@ -64,7 +64,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("error: failed to acquire the lock: %v", err)
 		}
-		log.Printf("%s acquired the lock 🔒 🔴", *id)
+		log.Printf("%s 🔒 ACQUIRED the lock", *id)
 
 		log.Printf("%s ⏳ attempting to update the value...", *id)
 
@@ -82,7 +82,7 @@ func main() {
 
 		// hold the lock for a random duration between 1 and 5 seconds
 		waitDuration = time.Duration(1+rand.Intn(4)) * time.Second
-		log.Printf("%s holding the lock for %s seconds...", *id, waitDuration)
+		log.Printf("%s HOLDING the lock for %s seconds...", *id, waitDuration)
 		time.Sleep(waitDuration)
 
 		// release the lock
@@ -90,7 +90,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("error: failed to release the lock: %v", err)
 		}
-		log.Printf("%s released the lock 🔓 🟢", *id)
+		log.Printf("%s 🔓 RELEASED the lock", *id)
 
 		loopCount++
 	}
